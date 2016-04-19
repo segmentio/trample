@@ -14,28 +14,28 @@ exports.flattenUntilArrayLeaf = flattenUntilArrayLeaf;
 function flattenUntilArrayLeaf(key, args, obj) {
   if (!obj) obj = {};
 
-  let isLeaf = false;
+  var isLeaf = false;
 
-  for (let i = 0; i < args.input.length; i++) {
-    const prop = args.input[i];
-    const arrayKey = (!key) ? i : (key + '.' + i);
+  for (var i = 0; i < args.input.length; i++) {
+    var prop = args.input[i];
+    var arrayKey = (!key) ? i : (key + '.' + i);
 
     if (isObject(prop)) {
       isLeaf = false;
       merge(obj, getRoot(arrayKey, prop, args.options));
     } else if (prop instanceof Array && args.options.flattenArray) {
       isLeaf = false;
-      let arr = flattenUntilArrayLeaf(arrayKey, {
+      var arr = flattenUntilArrayLeaf(arrayKey, {
         input: prop,
         options: args.options
       }, obj);
 
     } else if (!args.options.flattenArray && prop instanceof Array) {
       isLeaf = false;
-      let guard = false;
+      var guard = false;
 
-      for (let k = 0; k < prop.length; k++) {
-        let kval = prop[k];
+      for (var k = 0; k < prop.length; k++) {
+        var kval = prop[k];
 
         if (isObject(kval) || kval instanceof Array) {
           guard = false;
@@ -72,7 +72,7 @@ function flattenUntilArrayLeaf(key, args, obj) {
  */
 function trample(props, options) {
   if (!options) options = {};
-  let obj = {};
+  var obj = {};
 
   merge(obj, getRoot(null, props, options));
 
@@ -80,24 +80,24 @@ function trample(props, options) {
 }
 
 function merge(one, two) {
-  for (let key in two) {
-    let value = two[key];
+  for (var key in two) {
+    var value = two[key];
     one[key] = value;
   }
 }
 
 function getRoot(localKey, props, options) {
-  let obj = {};
+  var obj = {};
 
-  for (let key in props) {
+  for (var key in props) {
     if (props.hasOwnProperty(key)) {
-      const newKey = (localKey === null) ? key : localKey + '.' + key;
-      const value = props[key];
+      var newKey = (localKey === null) ? key : localKey + '.' + key;
+      var value = props[key];
 
       if (isObject(value)) {
         merge(obj, getRoot(newKey, value, options));
       } else if (value instanceof Array) {
-        let arr = flattenUntilArrayLeaf(newKey, {
+        var arr = flattenUntilArrayLeaf(newKey, {
           input: value,
           options: options
         });
@@ -116,4 +116,3 @@ function getRoot(localKey, props, options) {
 
   return obj;
 }
-

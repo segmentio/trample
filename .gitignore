@@ -1,0 +1,6 @@
+components
+build
+tmp
+*.tmp
+node_modules
+*.log

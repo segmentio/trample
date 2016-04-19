@@ -1,7 +1,6 @@
 {
   "name": "@segment/trample",
   "version": "0.1.0",
-  "private": true,
   "devDependencies": {
     "mocha": "*"
   }

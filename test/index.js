@@ -237,4 +237,23 @@ describe('trample', function() {
     assert.equal(res['address.state.b'], 'sf');
     assert.equal(res['address.cat.0.name'], 'John Doe');
   });
+
+  it('should delimit by default with a period', function() {
+    var obj = { foo: { bar: 'baz' } };
+    var res = trample(obj);
+
+    assert.equal(res['foo.bar'], 'baz');
+
+    var obj2 = { foo: { bar: 'baz' } };
+    var res2 = trample(obj2, { random: true });
+
+    assert.equal(res2['foo.bar'], 'baz');
+  });
+
+  it('should delimit according to passed in option', function() {
+    var obj = { foo: { bar: 'baz' } };
+    var res = trample(obj, { delimiter: '_' });
+
+    assert.equal(res['foo_bar'], 'baz');
+  });
 });

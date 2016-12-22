@@ -33,3 +33,8 @@ trample({ foobar: [{ bar: ['Hello', 'World'] }]});
 //   "foobar.0.bar": ["Hello", "World"]
 // }
 ```
+
+# Options
+
+`flattenArray: true` will flatten arrays
+`delimiter: '_'` will delimit by underscores

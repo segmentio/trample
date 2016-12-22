@@ -18,7 +18,7 @@ function flattenUntilArrayLeaf(key, args, obj) {
 
   for (var i = 0; i < args.input.length; i++) {
     var prop = args.input[i];
-    var arrayKey = (!key) ? i : (key + '.' + i);
+    var arrayKey = (!key) ? i : (key + args.options.delimiter + i);
 
     if (isObject(prop)) {
       isLeaf = false;
@@ -71,7 +71,7 @@ function flattenUntilArrayLeaf(key, args, obj) {
  * ```
  */
 function trample(props, options) {
-  if (!options) options = {};
+  if (!options) options = { delimiter: '.' };
   var obj = {};
 
   merge(obj, getRoot(null, props, options));

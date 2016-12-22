@@ -243,6 +243,11 @@ describe('trample', function() {
     var res = trample(obj);
 
     assert.equal(res['foo.bar'], 'baz');
+
+    var obj2 = { foo: { bar: 'baz' } };
+    var res2 = trample(obj2, { random: true });
+
+    assert.equal(res2['foo.bar'], 'baz');
   });
 
   it('should delimit according to passed in option', function() {

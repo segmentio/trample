@@ -16,9 +16,9 @@ trample({ foobar: { bar: ['Hello', 'World'] }}, { flattenArray: true });
 //   "foobar.bar.1": "World"
 // }
 
-trample({ foobar: { bar: ['Hello', 'World'] }});
+trample({ foobar: { bar: ['Hello', 'World'] }}, { delimiter: '_' });
 // {
-//   "foobar.bar": ["Hello", "World"]
+//   "foobar_bar": ["Hello", "World"]
 // }
 
 

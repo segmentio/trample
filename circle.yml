@@ -1,33 +1,28 @@
 machine:
-  pre:
-    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-  services:
-    - docker
+  node:
+    version: 4
+  environment:
+    NPM_CONFIG_PROGRESS: false
+    NPM_CONFIG_SPIN: false
 
 dependencies:
   pre:
-    - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
+    - npm config set "//registry.npmjs.org/:_authToken" $NPM_AUTH
+    - npm -g install codecov
   override:
-    - docker pull segment/golang-private:latest
+    - make install
 
 test:
   override:
-    - >
-      docker run
-      $(env | grep -E '^CIRCLE_|^DOCKER_|^AWS_|^GH_|^NPM_|^PRODUCTION_|^STAGE_|^CIRCLECI=|^CI=' | sed 's/^/--env /g' | tr "\\n" " ")
-      --rm
-      --tty
-      --interactive
-      --name go
-      --net host
-      --volume /var/run/docker.sock:/run/docker.sock
-      --volume ${GOPATH%%:*}/src:/go/src
-      --volume ${PWD}:/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-      --workdir /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-      segment/golang-private:latest
+    - make test
+  post:
+    - cp -R coverage $CIRCLE_ARTIFACTS/
+    - codecov
 
 deployment:
-  release:
-    tag: /.*/
+  publish:
+    owner: segmentio
+    # Works on e.g. `1.0.0-alpha.1`
+    tag: /[0-9]+(\.[0-9]+)*(-.+)?/
     commands:
-      - 'true'
+      - npm publish .

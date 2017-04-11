@@ -15,9 +15,6 @@ dependencies:
 test:
   override:
     - make test
-  post:
-    - cp -R coverage $CIRCLE_ARTIFACTS/
-    - codecov
 
 deployment:
   publish:

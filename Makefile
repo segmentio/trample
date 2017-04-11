@@ -4,14 +4,6 @@ MOCHA := node_modules/.bin/mocha
 TESTS = $(wildcard test/*.js)
 GREP ?=.
 
-clean:
-	rm -rf coverage *.log
-.PHONY: clean
-
-distclean: clean
-	rm -rf node_modules
-.PHONY: distclean
-
 node_modules: package.json $(wildcard node_modules/*/package.json)
 	@npm install
 	@touch $@

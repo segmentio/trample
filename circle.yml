@@ -8,7 +8,6 @@ machine:
 dependencies:
   pre:
     - npm config set "//registry.npmjs.org/:_authToken" $NPM_AUTH
-    - npm -g install codecov
   override:
     - make install
 

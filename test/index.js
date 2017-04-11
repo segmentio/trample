@@ -38,7 +38,7 @@ describe('flatten array leaf', function() {
   it('should flatten until leaf node array', function() {
     var res = getLeaf(null, {
       input: ['Hello', ['Foobar', ['Big']]],
-      options: { flattenArray: false }
+      options: {flattenArray: false, delimiter: '.'}
     });
 
     assert(!(res instanceof Array));
@@ -52,7 +52,7 @@ describe('flatten array leaf', function() {
   it('should flatten deep nested arrays', function() {
     var res = getLeaf(null, {
       input: ['Hello', ['Foobar', ['Big']]],
-      options: { flattenArray: true }
+      options: {flattenArray: true, delimiter: '.'}
     });
 
     assert(!(res instanceof Array));
@@ -66,7 +66,7 @@ describe('flatten array leaf', function() {
   it('should flatten everything', function() {
     var res = getLeaf(null, {
       input: ['Hello', ['Foobar']],
-      options: { flattenArray: true }
+      options: { flattenArray: true, delimiter: '.' }
     });
 
     assert(!(res instanceof Array));
@@ -81,7 +81,7 @@ describe('flatten array leaf', function() {
       input: [{
         foo: { bar: 123 }
       }],
-      options: { flattenArray: false }
+      options: { flattenArray: false, delimiter: '.' }
     });
 
     assert.deepEqual(res, {

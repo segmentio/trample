@@ -37,5 +37,5 @@ trample({ foobar: [{ bar: ['Hello', 'World'] }]});
 
 # Options
 
-`flattenArray: true` will flatten arrays
-`delimiter: '_'` will delimit by underscores
+* `flattenArray: true` will flatten arrays
+* `delimiter: '_'` will delimit by underscores

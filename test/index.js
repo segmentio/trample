@@ -271,16 +271,16 @@ describe('trample', function() {
     assert.equal(res['date'], dateVal);
   });
 
-  it('should flatten nested object, keep the date value intact', function() {
-    var date_val = new Date();
+  it('should keep date objects intact when flattening nested objects', function() {
+    var dateVal = new Date();
     var obj = {
-      'foobar123': {
-        'cat': 123,
-        'date': date_val
+      foobar123: {
+        cat: 123,
+        date: dateVal
       }
     };
 
-    var res = trample(obj, );
+    var res = trample(obj);
     assert.equal(res['foobar123.cat'], 123);
     assert.equal(res['foobar123.date'], date_val);
   });

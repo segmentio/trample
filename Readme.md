@@ -1,4 +1,3 @@
-[![Circle CI](https://circleci.com/gh/segmentio/trample.svg?style=shield&circle-token=dcc15a55a9b4b198cd0760607edf184ea1d3d7b5)](https://circleci.com/gh/segmentio/trample)
 # Segment Trample
 
 ```bash

@@ -301,12 +301,12 @@ describe('trample', function() {
     assert.equal(res['foobar123.arr.2'], dateVal);
   });
 
-  it('should process array, keep the date value intact', function() {
-    var date_val = new Date();
+  it('should keep date objects intact when processing, but not flattening, arrays', function() {
+    var dateVal = new Date();
     var obj = {
-      'foobar123': {
-        'cat': 123,
-        'arr': [1,'a', date_val]
+      foobar123: {
+        cat: 123,
+        arr: [1,'a', dateVal]
       }
     };
 
@@ -314,6 +314,6 @@ describe('trample', function() {
     assert.equal(res['foobar123.cat'], 123);
     assert.equal(res['foobar123.arr'][0], 1);
     assert.equal(res['foobar123.arr'][1], 'a');
-    assert.equal(res['foobar123.arr'][2], date_val);
+    assert.equal(res['foobar123.arr'][2], dateVal);
   });
 });

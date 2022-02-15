@@ -256,4 +256,64 @@ describe('trample', function() {
 
     assert.equal(res['foo_bar'], 'baz');
   });
+  
+  it('should keep date objects intact when flattening objects', function() {
+    var dateVal = new Date();
+    var obj = {
+      foobar123: {
+        cat: 123,
+      },
+      date: dateVal
+    };
+
+    var res = trample(obj);
+    assert.equal(res['foobar123.cat'], 123);
+    assert.equal(res['date'], dateVal);
+  });
+
+  it('should keep date objects intact when flattening nested objects', function() {
+    var dateVal = new Date();
+    var obj = {
+      foobar123: {
+        cat: 123,
+        date: dateVal
+      }
+    };
+
+    var res = trample(obj);
+    assert.equal(res['foobar123.cat'], 123);
+    assert.equal(res['foobar123.date'], date_val);
+  });
+
+  it('should keep date objects intact when flattening arrays', function() {
+    var dateVal = new Date();
+    var obj = {
+      foobar123: {
+        cat: 123,
+        arr: [1,'a', dateVal]
+      }
+    };
+
+    var res = trample(obj, { flattenArray: true });
+    assert.equal(res['foobar123.cat'], 123);
+    assert.equal(res['foobar123.arr.0'], 1);
+    assert.equal(res['foobar123.arr.1'], 'a');
+    assert.equal(res['foobar123.arr.2'], dateVal);
+  });
+
+  it('should keep date objects intact when processing, but not flattening, arrays', function() {
+    var dateVal = new Date();
+    var obj = {
+      foobar123: {
+        cat: 123,
+        arr: [1,'a', dateVal]
+      }
+    };
+
+    var res = trample(obj, { flattenArray: false });
+    assert.equal(res['foobar123.cat'], 123);
+    assert.equal(res['foobar123.arr'][0], 1);
+    assert.equal(res['foobar123.arr'][1], 'a');
+    assert.equal(res['foobar123.arr'][2], dateVal);
+  });
 });

@@ -1,7 +1,7 @@
 'use strict';
 
 function isObject(o) {
-  if ('object' === typeof o && !(o instanceof Array)) {
+  if ('object' === typeof o && !(o instanceof Array) && !(o instanceof Date)) {
     return true;
   }
 
